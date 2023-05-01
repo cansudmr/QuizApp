@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Results"
+    android:background="@drawable/background">
+
+
+    <ImageView
+        android:id="@+id/f1IconResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/f1logo"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:contentDescription="@string/desc"/>
+
+    <TextView
+        android:id="@+id/completeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YOU COMPLETED THE QUIZ!"
+        android:textSize="30dp"
+        android:layout_marginStart="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="300dp"
+        android:textColor="@color/black"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/completeText"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/correctAnswers"
+            android:text="0"
+            android:textStyle="bold"
+            android:layout_marginTop="25dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/incorrectAnswers"
+            android:layout_marginTop="25dp"
+            android:text="0"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/startNew"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:text="Start New Quiz"
+        android:background="@drawable/next_button"
+        android:layout_marginTop="550dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"/>
+
+
+
+
+
+    
+</RelativeLayout>
