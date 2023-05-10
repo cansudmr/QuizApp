@@ -59,7 +59,7 @@ public class QuizActivity extends AppCompatActivity {
         questionList = QuestionData.getQuestions(getChosenLevelName);
         startTimer(timer);
 
-        questions.setText((currentQuestionPos+1) +"/" +questionList.size());
+        questions.setText((currentQuestionPos+1)+ "/" +questionList.size());
         question.setText(questionList.get(0).getQuestion());
         option1.setText(questionList.get(0).getAns1());
         option2.setText(questionList.get(0).getAns2());
@@ -145,7 +145,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(selectedOptionByUser.isEmpty()){
-                    Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizActivity.this, "Please choose an option first!", Toast.LENGTH_SHORT).show();
                 }
 
                 else{
@@ -204,58 +204,31 @@ public class QuizActivity extends AppCompatActivity {
             finish();
         }
     }
-    private void startTimer(TextView timerTextView){
+    private void startTimer(TextView timerTextView) {
         quizTimer = new Timer();
 
         quizTimer.scheduleAtFixedRate(new TimerTask() {
+            int totalTimeInSeconds = totalTimeInMins * 60;
+
             @Override
             public void run() {
-
-                if(seconds == 0 && totalTimeInMins == 0){
-
-                    quizTimer.purge();
+                if (totalTimeInSeconds == 0) {
                     quizTimer.cancel();
                     finish();
-
-
+                    startActivity(new Intent(QuizActivity.this, TimeOverResult.class));
+                    return;
                 }
 
-                else if(seconds == 0){
-                    totalTimeInMins -= 1;
-                    seconds = 59;
-                }
+                int minutes = totalTimeInSeconds / 60;
+                int seconds = totalTimeInSeconds % 60;
 
-                else {
-                    seconds--;
-                }
+                String formattedTime = String.format("%02d:%02d", minutes, seconds);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                runOnUiThread(() -> timerTextView.setText(formattedTime));
 
-                        if(seconds == 0 && totalTimeInMins == 0){
-
-                            Intent intent = new Intent(QuizActivity.this, TimeOverResult.class);
-                            startActivity(intent);
-                        }
-
-                        String finalMin = String.valueOf(totalTimeInMins);
-                        String finalSeconds = String.valueOf(seconds);
-
-                        if(finalMin.length() == 1){
-                            finalMin = "0" + finalMin;
-
-                        }
-
-                        if(finalSeconds.length() == 1){
-                            finalSeconds = "0" + finalSeconds;
-                        }
-
-                        timerTextView.setText(finalMin + ":" +finalSeconds);
-                    }
-                });
+                totalTimeInSeconds--;
             }
-        },1000, 1000);
+        }, 0, 1000);
     }
 
     private int getCorrectAnswers(){
